@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Gracias por contactarnos – BitFlow</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root{
+      --bg-main:#0d1117;
+      --bg-card:#151b23;
+      --accent-orange:#ff8a1f;
+      --accent-blue:#1e90ff;
+      --text-main:#e5e7eb;
+      --text-muted:#9ca3af;
+      --border-subtle:#242b35;
+      --radius-lg:18px;
+      --radius-full:999px;
+      --shadow-soft:0 18px 40px rgba(0,0,0,.55);
+    }
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{
+      font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      background:radial-gradient(circle at top,#151b23 0,#020617 45%,#000 100%);
+      color:var(--text-main);
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:1.5rem;
+    }
+    .wrapper{
+      max-width:600px;
+      width:100%;
+    }
+    .card{
+      background:var(--bg-card);
+      border-radius:24px;
+      border:1px solid var(--border-subtle);
+      box-shadow:var(--shadow-soft);
+      padding:2rem 1.8rem 1.6rem;
+      position:relative;
+      overflow:hidden;
+    }
+    .card::before{
+      content:"";
+      position:absolute;
+      inset:-40%;
+      background:
+        radial-gradient(circle at 0% 0%,rgba(255,138,31,0.18),transparent 55%),
+        radial-gradient(circle at 100% 100%,rgba(30,144,255,0.22),transparent 55%);
+      opacity:0.7;
+      pointer-events:none;
+    }
+    .card-inner{
+      position:relative;z-index:1;
+    }
+    .logo{
+      display:flex;
+      align-items:center;
+      gap:.7rem;
+      margin-bottom:1.5rem;
+    }
+    .logo-icon{
+      width:40px;height:40px;border-radius:14px;
+      background:radial-gradient(circle,#ffb347,#ff8a1f);
+      display:flex;align-items:center;justify-content:center;
+      overflow:hidden;
+    }
+    .logo-icon img{
+      width:90%;height:auto;object-fit:contain;
+    }
+    .logo-text-main{
+      font-weight:700;font-size:1.1rem;letter-spacing:.03em;
+      background:linear-gradient(90deg,var(--accent-orange),var(--accent-blue));
+      -webkit-background-clip:text;color:transparent;
+    }
+    .logo-text-sub{
+      font-size:.78rem;color:var(--text-muted);
+    }
+    .title{
+      font-size:1.6rem;
+      font-weight:700;
+      margin-bottom:.6rem;
+    }
+    .title span{
+      background:linear-gradient(90deg,var(--accent-orange),var(--accent-blue));
+      -webkit-background-clip:text;color:transparent;
+    }
+    .subtitle{
+      font-size:.95rem;
+      color:var(--text-muted);
+      margin-bottom:1.4rem;
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:.4rem;
+      border-radius:var(--radius-full);
+      border:1px solid rgba(148,163,184,0.4);
+      padding:.25rem .9rem;
+      font-size:.8rem;
+      color:var(--text-muted);
+      background:rgba(15,23,42,0.9);
+      margin-bottom:1.2rem;
+    }
+    .pill-dot{
+      width:9px;height:9px;border-radius:999px;
+      background:radial-gradient(circle,#4ade80,#22c55e);
+      box-shadow:0 0 10px rgba(34,197,94,0.7);
+    }
+    .list{
+      font-size:.88rem;
+      color:var(--text-muted);
+      margin-bottom:1.4rem;
+    }
+    .list ul{margin-left:1.2rem;margin-top:.4rem}
+    .btn-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:.7rem;
+      margin-top:.4rem;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:.3rem;
+      padding:.6rem 1.2rem;
+      border-radius:var(--radius-full);
+      border:1px solid transparent;
+      font-size:.86rem;
+      font-weight:500;
+      cursor:pointer;
+      text-decoration:none;
+      transition:all .25s ease;
+    }
+    .btn-primary{
+      background:linear-gradient(120deg,var(--accent-orange),var(--accent-blue));
+      color:#f9fafb;
+      box-shadow:var(--shadow-soft);
+    }
+    .btn-primary:hover{
+      filter:brightness(1.05);
+      transform:translateY(-1px);
+      box-shadow:0 22px 45px rgba(0,0,0,.7);
+    }
+    .btn-ghost{
+      border-color:rgba(148,163,184,.5);
+      background:rgba(15,23,42,.95);
+      color:var(--text-muted);
+    }
+    .btn-ghost:hover{
+      border-color:var(--accent-blue);
+      color:var(--text-main);
+      background:#020617;
+    }
+    .note{
+      font-size:.78rem;
+      color:var(--text-muted);
+      margin-top:1rem;
+    }
+    .note strong{color:var(--accent-blue);}
+    @media(max-width:600px){
+      .card{padding:1.6rem 1.3rem 1.3rem;}
+      .title{font-size:1.4rem;}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="card">
+      <div class="card-inner">
+
+        <!-- LOGO -->
+        <div class="logo">
+          <div class="logo-icon">
+            <!-- Cambia la ruta del logo por la de tu archivo -->
+            <img src="LogoBitFlow1.png" alt="BitFlow Logo">
+          </div>
+          <div>
+            <div class="logo-text-main">BitFlow</div>
+            <div class="logo-text-sub">Ingeniería de Datos & Automatización</div>
+          </div>
+        </div>
+
+        <!-- CONTENIDO -->
+        <h1 class="title">¡Gracias por <span>contactarnos</span>!</h1>
+        <p class="subtitle">
+          Hemos recibido tu mensaje correctamente.  
+          Un miembro del equipo de BitFlow revisará tu solicitud y se pondrá en contacto contigo
+          lo antes posible.
+        </p>
+
+        <div class="pill">
+          <span class="pill-dot"></span>
+          <span>Tu información está siendo procesada de forma segura.</span>
+        </div>
+
+        <div class="list">
+          <p><strong>¿Qué sigue ahora?</strong></p>
+          <ul>
+            <li>Analizaremos brevemente tu mensaje y tu interés (BI, ETL, Bases de Datos, IA, etc.).</li>
+            <li>Si es necesario, te pediremos información adicional sobre tu contexto.</li>
+            <li>Luego agendaremos una llamada o reunión para entender mejor tu necesidad.</li>
+          </ul>
+        </div>
+
+        <div class="btn-row">
+          <!-- Regresar al inicio de tu sitio -->
+          <a href="index.html" class="btn btn-primary">Volver al sitio</a>
+
+          <!-- Botón directo a WhatsApp (ajusta el número) -->
+          <a href="https://wa.me/573162718779?text=Hola%2C%20acabo%20de%20enviar%20un%20formulario%20desde%20la%20web%20de%20BitFlow%20y%20me%20gustar%C3%ADa%20hablar%20con%20un%20asesor."
+             target="_blank"
+             class="btn btn-ghost">
+            Hablar por WhatsApp
+          </a>
+        </div>
+
+        <p class="note">
+          <strong>BitFlow</strong> · Transformamos tus datos en decisiones inteligentes.
+        </p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
