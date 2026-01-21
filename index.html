@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BitFlow – Transformamos tus datos en decisiones inteligentes</title>
+  <meta name="description" content="BitFlow ofrece servicios integrales en bases de datos, automatización de procesos, analítica de negocio, BI e inteligencia artificial." />
+  <style>
+    :root{
+      --bg-main:#0d1117;--bg-card:#151b23;--accent-orange:#ff8a1f;--accent-blue:#1e90ff;
+      --text-main:#e5e7eb;--text-muted:#9ca3af;--border-subtle:#242b35;
+      --radius-lg:18px;--radius-full:999px;--shadow-soft:0 18px 40px rgba(0,0,0,.55);
+      --transition-fast:.25s ease;--max-width:1200px;
+    }
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{
+      font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      font-size:17px;
+      background:radial-gradient(circle at top,#151b23 0,#020617 45%,#000 100%);
+      color:var(--text-main);line-height:1.6;scroll-behavior:smooth
+    }
+    img{max-width:100%;display:block}
+    a{color:inherit;text-decoration:none}
+    .page{min-height:100vh;display:flex;flex-direction:column}
+    .container{width:100%;max-width:var(--max-width);margin:0 auto;padding:0 1.5rem}
+
+    /* NAVBAR */
+    .navbar{
+      position:sticky;top:0;z-index:50;
+      backdrop-filter:blur(18px);
+      background:linear-gradient(to bottom,rgba(2,6,23,.9),rgba(2,6,23,.5),transparent);
+      border-bottom:1px solid rgba(148,163,184,.1)
+    }
+    .navbar-inner{display:flex;align-items:center;justify-content:space-between;padding:.8rem 0;gap:1rem}
+    .brand{display:flex;align-items:center;gap:.7rem}
+    .brand-logo{
+      width:46px;height:46px;border-radius:999px;
+      background:#ffffff;
+      display:flex;align-items:center;justify-content:center;overflow:hidden
+    }
+    .brand-logo img{width:90%;object-fit:contain}
+    .brand-text-main{font-weight:700;font-size:1.2rem;letter-spacing:.03em;color:var(--accent-blue)}
+    .brand-text-sub{font-size:.75rem;color:var(--text-muted)}
+    .nav-links{display:flex;align-items:center;gap:1.5rem;font-size:.95rem}
+    .nav-links a{
+      position:relative;padding-bottom:.1rem;color:var(--text-muted);
+      transition:color var(--transition-fast)
+    }
+    .nav-links a::after{
+      content:"";position:absolute;left:0;bottom:-.2rem;width:0;height:2px;
+      background:linear-gradient(90deg,var(--accent-orange),var(--accent-blue));
+      border-radius:999px;transition:width var(--transition-fast)
+    }
+    .nav-links a:hover{color:var(--text-main)}
+    .nav-links a:hover::after{width:100%}
+    .nav-cta{display:none}
+
+    /* HERO */
+    .hero{padding:4rem 0 3rem}
+    .hero-grid{justify-items:center;text-align:center;
+      display:grid;
+      grid-template-columns:1fr;
+      gap:2.5rem;
+      align-items:center
+    }
+    .badge{
+      display:inline-flex;align-items:center;gap:.4rem;padding:.15rem .7rem;
+      border-radius:var(--radius-full);border:1px solid rgba(148,163,184,.6);
+      font-size:.8rem;color:var(--text-muted);
+      background:radial-gradient(circle at left,#1f2933,#020617);margin-bottom:1rem
+    }
+    .badge-dot{
+      width:10px;height:10px;border-radius:999px;
+      background:radial-gradient(circle,#4ade80,#22c55e);
+      box-shadow:0 0 8px rgba(34,197,94,.6)
+    }
+    .hero-title{
+      font-size:clamp(2rem,4vw,3rem);font-weight:800;letter-spacing:.02em;margin-bottom:.8rem
+    }
+    .hero-title-compact{
+      font-size:clamp(1.9rem,3.4vw,2.6rem);
+      letter-spacing:.015em;
+    }
+    .hero-title span{
+      background:linear-gradient(90deg,var(--accent-orange),var(--accent-blue));
+      -webkit-background-clip:text;color:transparent
+    }
+    .hero-subtitle{max-width:32rem;color:var(--text-muted);font-size:.98rem;margin-bottom:1.5rem}
+    .hero-highlight{display:flex;flex-wrap:wrap;gap:.7rem;margin-bottom:2rem;font-size:.86rem}
+    .hero-pill{
+      padding:.25rem .75rem;border-radius:var(--radius-full);
+      border:1px solid rgba(56,189,248,.4);background:rgba(15,23,42,.8);color:#e0f2fe
+    }
+    .hero-actions{display:flex;flex-wrap:wrap;gap:1rem;align-items:center;margin-bottom:1.5rem}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:.4rem;
+      padding:.7rem 1.4rem;border-radius:var(--radius-full);border:1px solid transparent;
+      font-size:.9rem;font-weight:500;cursor:pointer;transition:all var(--transition-fast);
+      background:none;color:var(--text-main)
+    }
+    .btn-primary{
+      background:linear-gradient(120deg,var(--accent-orange),var(--accent-blue));
+      box-shadow:var(--shadow-soft)
+    }
+    .btn-primary:hover{
+      filter:brightness(1.05);transform:translateY(-1px);
+      box-shadow:0 22px 45px rgba(0,0,0,.7)
+    }
+    .btn-ghost{
+      border-color:rgba(148,163,184,.5);background:rgba(15,23,42,.8);color:var(--text-muted)
+    }
+    .btn-ghost:hover{border-color:var(--accent-blue);color:var(--text-main);background:rgba(15,23,42,1)}
+    .hero-note{font-size:.8rem;color:var(--text-muted)}
+    .hero-note strong{color:var(--accent-blue)}
+
+    /* HERO VISUAL (imagen en lugar del panel) */
+    .hero-visual{justify-content:center;margin-top:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:visible;
+    }
+    .hero-visual img{
+      width:100%;
+      max-width:700px;
+      border:0;
+      border-radius:0;
+      box-shadow:none;
+
+      /* Difuminado uniforme en todo el perímetro */
+      -webkit-mask-image: radial-gradient(
+        farthest-side at center,
+        rgba(0,0,0,1) 62%,
+        rgba(0,0,0,0.85) 74%,
+        rgba(0,0,0,0.55) 86%,
+        rgba(0,0,0,0.25) 94%,
+        rgba(0,0,0,0) 100%
+      );
+      mask-image: radial-gradient(
+        farthest-side at center,
+        rgba(0,0,0,1) 62%,
+        rgba(0,0,0,0.85) 74%,
+        rgba(0,0,0,0.55) 86%,
+        rgba(0,0,0,0.25) 94%,
+        rgba(0,0,0,0) 100%
+      );
+
+      /* Halo técnico muy sutil */
+      filter:
+        drop-shadow(0 0 30px rgba(30,144,255,.16))
+        drop-shadow(0 0 18px rgba(255,138,31,.10));
+    }
+
+    /* Secciones como franjas */
+    section {
+      position: relative;
+      padding: 3.5rem 0;
+      z-index: 1;
+    }
+
+    /* Franjas alternadas con dos tonos distintos */
+    section:nth-of-type(odd) {
+      background: linear-gradient(
+        to bottom,
+        #0A0D16 0%,
+        rgba(30, 144, 255, 0.15) 45%,
+        rgba(30, 144, 255, 0.10) 70%,
+        #0A0D16 100%
+      );
+    }
+
+    section:nth-of-type(even) {
+      background: linear-gradient(
+        to bottom,
+        #0A0C10 0%,
+        rgba(255, 138, 31, 0.13) 45%,
+        rgba(255, 138, 31, 0.08) 70%,
+        #0A0C10 100%
+      );
+    }
+
+    /* Línea suave entre franjas */
+    section::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      height: 1px;
+      background: linear-gradient(
+        to right,
+        transparent,
+        rgba(148, 163, 184, 0.35),
+        transparent
+      );
+      opacity: 0.7;
+    } /*Termina seccion de franjas*/
+
+    .section-header{
+      display:flex;justify-content:center;align-items:center;gap:1rem;text-align:center;
+      margin-bottom:2rem;flex-wrap:wrap
+    }
+    .section-title{font-size:1.75rem;font-weight:700}
+    .section-title span{
+      background:linear-gradient(90deg,var(--accent-orange),var(--accent-blue));
+      -webkit-background-clip:text;color:transparent
+    }
+    .section-subtitle{max-width:32rem;font-size:1rem;color:var(--text-muted)}
+
+    .grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.5rem}
+    .grid-4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1.5rem}
+    .card{min-height:360px;display:flex;flex-direction:column;justify-content:space-between;
+      background:var(--bg-card);border-radius:var(--radius-lg);padding:1.3rem 1.2rem;
+      border:1px solid var(--border-subtle);box-shadow:0 14px 30px rgba(0,0,0,.35);
+      position:relative;overflow:hidden;transition:transform var(--transition-fast),
+      box-shadow var(--transition-fast),border-color var(--transition-fast),background .3s
+    }
+    .card:hover{
+      transform:translateY(-4px);box-shadow:0 22px 50px rgba(0,0,0,.65);
+      border-color:rgba(96,165,250,.6);background:radial-gradient(circle at top,#111827,#020617)
+    }
+    .card-icon{
+      width:32px;height:32px;border-radius:var(--radius-full);
+      background:radial-gradient(circle,var(--accent-orange),#f97316);
+      display:flex;align-items:center;justify-content:center;font-size:1.1rem;margin-bottom:.6rem
+    }
+    .card-title{font-size:1rem;font-weight:600;margin-bottom:.4rem}
+    .card-text{font-size:.86rem;color:var(--text-muted);margin-bottom:.8rem}
+    .card-tags{display:flex;flex-wrap:wrap;gap:.35rem;font-size:.72rem}
+    .card-tag{
+      padding:.16rem .5rem;border-radius:999px;
+      border:1px solid rgba(148,163,184,.5);color:var(--text-muted)
+    }
+
+    /* SERVICIOS */
+    .services-filter{display:flex;flex-wrap:wrap;gap:.6rem;margin-bottom:1.4rem}
+    .filter-btn{
+      padding:.35rem .9rem;border-radius:var(--radius-full);
+      border:1px solid rgba(148,163,184,.5);background:rgba(15,23,42,.9);
+      color:var(--text-muted);font-size:.8rem;cursor:pointer;transition:all var(--transition-fast)
+    }
+    .filter-btn.active{
+      background:linear-gradient(120deg,var(--accent-orange),var(--accent-blue));
+      border-color:transparent;color:#f9fafb;box-shadow:0 15px 35px rgba(0,0,0,.6)
+    }
+    .services-grid{
+      display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.2rem
+    }
+    .service-card{
+      background:var(--bg-card);border-radius:var(--radius-lg);padding:1rem;
+      border:1px solid var(--border-subtle);font-size:.84rem;color:var(--text-muted);
+      transition:all var(--transition-fast)
+    }
+    .service-card:hover{
+      border-color:rgba(96,165,250,.7);transform:translateY(-3px);
+      box-shadow:0 18px 40px rgba(0,0,0,.5)
+    }
+    .service-title{font-size:.95rem;font-weight:600;color:#e5e7eb;margin-bottom:.3rem}
+    .service-category{
+      font-size:.7rem;color:var(--accent-blue);margin-bottom:.4rem;
+      text-transform:uppercase;letter-spacing:.05em
+    }
+
+    /* NOSOTROS */
+    .mv-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:1.5rem}
+    .mv-block{
+      background:var(--bg-card);border-radius:20px;border:1px solid var(--border-subtle);
+      padding:1.3rem 1.2rem;box-shadow:var(--shadow-soft)
+    }
+    .mv-title{font-size:.98rem;font-weight:600;margin-bottom:.3rem;color:#e5e7eb}
+    .mv-text{font-size:.86rem;color:var(--text-muted)}
+
+    /* VALORES */
+    .values-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.2rem}
+    .value-pill{
+      background:var(--bg-card);border-radius:18px;padding:1rem;
+      border:1px solid var(--border-subtle);font-size:.85rem;color:var(--text-muted);position:relative
+    }
+    .value-pill::before{
+      content:"";position:absolute;width:4px;height:26px;border-radius:999px;
+      background:linear-gradient(to bottom,var(--accent-orange),var(--accent-blue));
+      left:.85rem;top:1.1rem
+    }
+    .value-title{font-weight:600;color:#e5e7eb;margin-left:1.5rem;margin-bottom:.2rem}
+    .value-text{margin-left:1.5rem;font-size:.84rem}
+
+    /* FAQ */
+    .faq-grid{
+      display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);
+      gap:1.5rem;align-items:flex-start
+    }
+    .faq-intro{font-size:.88rem;color:var(--text-muted);max-width:25rem}
+    .faq-intro strong{color:var(--accent-orange)}
+    .accordion{display:flex;flex-direction:column;gap:.7rem}
+    .accordion-item{
+      border-radius:14px;background:var(--bg-card);
+      border:1px solid var(--border-subtle);overflow:hidden
+    }
+    .accordion-header{
+      padding:.7rem .9rem;display:flex;align-items:center;
+      justify-content:space-between;gap:.7rem;cursor:pointer
+    }
+    .accordion-title{font-size:.86rem;font-weight:500}
+    .accordion-icon{font-size:1.2rem;color:var(--accent-blue);transition:transform var(--transition-fast)}
+    .accordion-item.open .accordion-icon{transform:rotate(90deg)}
+    .accordion-body{max-height:0;overflow:hidden;transition:max-height .25s ease;padding:0 .9rem}
+    .accordion-body-inner{padding-bottom:.7rem;font-size:.8rem;color:var(--text-muted)}
+
+    /* CONTACTO */
+    .contact-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:1.5rem}
+    .contact-card{
+      background:var(--bg-card);border-radius:20px;border:1px solid var(--border-subtle);
+      padding:1.3rem 1.2rem;box-shadow:var(--shadow-soft)
+    }
+    .contact-form{display:flex;flex-direction:column;gap:.9rem;margin-top:.5rem}
+    .field{display:flex;flex-direction:column;gap:.25rem;font-size:.8rem}
+    .field label{color:#cbd5f5}
+    .field input,.field textarea,.field select{
+      border-radius:.75rem;border:1px solid rgba(148,163,184,.5);
+      padding:.55rem .7rem;background:rgba(15,23,42,.9);color:#f9fafb;
+      font-size:.85rem;outline:none;transition:border-color var(--transition-fast),
+      box-shadow var(--transition-fast),background var(--transition-fast)
+    }
+    .field input:focus,.field textarea:focus,.field select:focus{
+      border-color:var(--accent-blue);box-shadow:0 0 0 1px var(--accent-blue);background:#020617
+    }
+    .field textarea{min-height:90px;resize:vertical}
+    .contact-info{font-size:.86rem;color:var(--text-muted)}
+    .contact-info-item{margin-top:.6rem}
+    .contact-badges{
+      margin-top:.8rem;display:flex;flex-wrap:wrap;gap:.5rem;font-size:.78rem
+    }
+    .contact-badge{
+      padding:.25rem .7rem;border-radius:var(--radius-full);
+      border:1px solid rgba(148,163,184,.5);color:var(--text-muted)
+    }
+
+    /* FOOTER */
+    footer{
+      border-top:1px solid rgba(148,163,184,.2);
+      padding:1.5rem 0 1.4rem;font-size:.8rem;color:var(--text-muted)
+    }
+    .footer-inner{
+      display:flex;justify-content:space-between;align-items:center;
+      gap:1rem;flex-wrap:wrap
+    }
+    .footer-links{display:flex;flex-wrap:wrap;gap:1rem}
+    .footer-links a{color:var(--text-muted)}
+    .footer-links a:hover{color:var(--accent-blue)}
+
+    /* Animaciones */
+    .reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease}
+    .reveal.visible{opacity:1;transform:translateY(0)}
+
+    /* RESPONSIVE */
+    @media(max-width:960px){
+      .hero-grid{justify-items:center;text-align:center;
+        grid-template-columns:minmax(0,1fr)
+      }
+      .hero-visual{justify-content:center;margin-top:0;
+        margin-top:2rem;
+      }
+      .hero-visual img{
+        max-width:520px;
+      }
+      .grid-3,.grid-4,.services-grid,.values-grid{
+        grid-template-columns:repeat(2,minmax(0,1fr))
+      }
+    }
+    @media(max-width:720px){
+      .navbar-inner{flex-wrap:wrap}
+      .nav-links{display:none}
+      .nav-cta{display:inline-flex}
+      .hero{padding-top:3rem}
+      .grid-3,.grid-4,.services-grid,.values-grid{
+        grid-template-columns:minmax(0,1fr)
+      }
+      .section-header{flex-direction:column;align-items:flex-start}
+    }
+    @media(max-width:480px){
+      .hero-visual img{
+        max-width:420px;
+      }
+    }
+
+    /* CTA dentro de card */
+    .card-cta{ margin-top:.9rem; display:flex; }
+
+    /* Modal */
+    .modal-backdrop{
+      position:fixed; inset:0;
+      background:rgba(0,0,0,.62);
+      backdrop-filter: blur(10px);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:1.25rem;
+      z-index:999;
+    }
+    .modal-backdrop.open{ display:flex; }
+
+    .modal{
+      width:min(920px, 96vw);
+      border-radius:22px;
+      border:1px solid rgba(148,163,184,.22);
+      background:radial-gradient(circle at top left,#111827,#020617);
+      box-shadow:0 28px 80px rgba(0,0,0,.75);
+      overflow:hidden;
+      transform: translateY(10px);
+      opacity:0;
+      transition: opacity .18s ease, transform .18s ease;
+    }
+    .modal-backdrop.open .modal{
+      transform: translateY(0);
+      opacity:1;
+    }
+
+    .modal-header{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:1rem;
+      padding:1.1rem 1.2rem;
+      border-bottom:1px solid rgba(148,163,184,.15);
+    }
+    .modal-eyebrow{
+      font-size:.75rem;
+      color:var(--text-muted);
+    }
+    .modal-title{
+      font-size:1.15rem;
+      font-weight:700;
+      letter-spacing:.01em;
+    }
+    .modal-close{
+      width:38px;height:38px;
+      border-radius:12px;
+      border:1px solid rgba(148,163,184,.25);
+      background:rgba(15,23,42,.85);
+      color:var(--text-main);
+      cursor:pointer;
+      transition: all .2s ease;
+    }
+    .modal-close:hover{
+      border-color: rgba(30,144,255,.7);
+      transform: translateY(-1px);
+    }
+
+    .modal-body{
+      padding:1.1rem 1.2rem 1.2rem;
+      display:grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap:1rem;
+    }
+    @media(max-width:860px){
+      .modal-body{ grid-template-columns:1fr; }
+    }
+
+    .modal-panel{
+      border:1px solid rgba(148,163,184,.15);
+      background:rgba(15,23,42,.65);
+      border-radius:18px;
+      padding:1rem;
+    }
+    .modal-panel h4{
+      font-size:.9rem;
+      margin-bottom:.5rem;
+    }
+    .modal-panel p{
+      color:var(--text-muted);
+      font-size:.86rem;
+      margin-bottom:.8rem;
+    }
+
+    .modal-list{
+      display:flex;
+      flex-direction:column;
+      gap:.55rem;
+      margin-top:.4rem;
+    }
+    .modal-item{
+      display:flex;
+      gap:.55rem;
+      align-items:flex-start;
+      padding:.65rem .7rem;
+      border-radius:14px;
+      border:1px solid rgba(148,163,184,.12);
+      background:rgba(2,6,23,.55);
+    }
+    .modal-item strong{ font-size:.86rem; }
+    .modal-item span{
+      display:block;
+      font-size:.8rem;
+      color:var(--text-muted);
+      margin-top:.15rem;
+    }
+    .modal-dot{
+      margin-top:.28rem;
+      width:10px;height:10px;border-radius:999px;
+      background:linear-gradient(120deg,var(--accent-orange),var(--accent-blue));
+      box-shadow:0 0 10px rgba(30,144,255,.18);
+      flex:0 0 auto;
+    }
+
+    .modal-chips{
+      display:flex;
+      flex-wrap:wrap;
+      gap:.45rem;
+    }
+    .modal-chip{
+      padding:.25rem .65rem;
+      border-radius:999px;
+      border:1px solid rgba(148,163,184,.22);
+      background:rgba(2,6,23,.55);
+      font-size:.75rem;
+      color:#e5e7eb;
+    }
+
+    .modal-footer{
+      display:flex;
+      justify-content:flex-end;
+      gap:.7rem;
+      padding:1rem 1.2rem 1.2rem;
+      border-top:1px solid rgba(148,163,184,.15);
+    }
+
+    /* WhatsApp flotante */
+    .whatsapp-float{transform:scale(1.45);
+      position:fixed;
+      transform:scale(1.15);
+      right:24px;
+      bottom:24px;
+      z-index:1000;
+
+      display:flex;
+      align-items:center;
+      gap:10px;
+
+      padding:14px 20px;
+      border-radius:16px;
+
+      background:rgba(15,23,42,.72);
+      backdrop-filter:blur(10px);
+
+      border:1px solid rgba(30,144,255,.45);
+      box-shadow:
+        0 12px 30px rgba(0,0,0,.55),
+        inset 0 0 0 1px rgba(255,138,31,.22);
+
+      color:#e5e7eb;
+      font-size:.85rem;
+      font-weight:600;
+      letter-spacing:.01em;
+
+      transition:transform .2s ease, box-shadow .2s ease, background .2s ease;
+
+      /* Para que el pulso no se corte */
+      overflow:visible;
+    }
+
+    .whatsapp-float img{
+      width:42px;
+      height:42px;
+    }
+
+    .whatsapp-float:hover{
+      transform:translateY(-2px);
+      background:rgba(15,23,42,.9);
+      box-shadow:
+        0 18px 40px rgba(0,0,0,.7),
+        inset 0 0 0 1px rgba(30,144,255,.6);
+    }
+
+    /* Pulso sutil */
+    .whatsapp-float::after{
+      content:"";
+      position:absolute;
+      inset:-6px;
+      border-radius:18px;
+      background:linear-gradient(120deg, rgba(255,138,31,.18), rgba(30,144,255,.18));
+      opacity:.0;
+      transform:scale(.98);
+      animation:waPulse 1.9s ease-in-out infinite;
+      pointer-events:none;
+      z-index:-1;
+      filter:blur(1px);
+    }
+
+    @keyframes waPulse{
+      0%{opacity:0; transform:scale(.98);}
+      35%{opacity:.35; transform:scale(1.02);}
+      70%{opacity:0; transform:scale(1.06);}
+      100%{opacity:0; transform:scale(.98);}
+    }
+
+    @media(max-width:480px){
+      .whatsapp-float{transform:scale(1.45);padding:10px 12px; border-radius:999px;}
+      .whatsapp-float span{display:none;}
+      .whatsapp-float::after{inset:-8px; border-radius:999px;}
+    }
+
+  
+    /* LOGO HERO (logo grande arriba del hero) */
+    .logo-hero{
+      padding:3.2rem 0 1.8rem;
+      text-align:center;
+    }
+    .logo-hero-wrapper{
+      position:relative;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .logo-hero-wrapper::before{
+      content:"";
+      position:absolute;
+      width:280px;
+      height:280px;
+      border-radius:50%;
+      background:
+        radial-gradient(
+          circle,
+          rgba(30,144,255,.22) 0%,
+          rgba(255,138,31,.16) 35%,
+          rgba(30,144,255,.10) 55%,
+          rgba(0,0,0,0) 70%
+        );
+      filter:blur(22px);
+      z-index:0;
+    }
+    .logo-hero-img{
+      position:relative;
+      z-index:1;
+      width:220px;
+      max-width:80vw;
+      height:auto;
+    }
+
+  </style>
+</head>
+<body>
+<div class="page">
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="container navbar-inner">
+      <div class="brand">
+        <div class="brand-logo">
+          <img src="img/Logo-BitFlow1.png" alt="Logo BitFlow" />
+        </div>
+        <div>
+          <div class="brand-text-main">BitFlow</div>
+          <div class="brand-text-sub">Ingeniería de Datos</div>
+        </div>
+      </div>
+
+      <nav class="nav-links">
+        <a href="#inicio">Inicio</a>
+        <a href="#que-hacemos">Qué hacemos</a>
+        
+        <a href="#nosotros">Nosotros</a>
+        <a href="#valores">Valores</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+</div>
+  </header>
+
+  
+  <!-- LOGO HERO -->
+  <section class="logo-hero" aria-label="Logo BitFlow">
+    <div class="container">
+      <div class="logo-hero-wrapper">
+        <img
+          src="img/Logo-BitFlow.png"
+          alt="BitFlow"
+          class="logo-hero-img"
+          loading="eager"
+        />
+      </div>
+    </div>
+  </section>
+
+<!-- HERO -->
+  <main>
+    <section id="inicio" class="hero">
+      <div class="container hero-grid">
+        <div class="reveal" style="text-align:center;max-width:720px;margin:0 auto;">
+          
+            <span>Transformamos tus datos en decisiones inteligentes</span>
+          </div>
+
+          <h1 class="hero-title hero-title-compact" style="text-align:center;" style="text-align:center;">
+            <span>Ingeniería de datos, automatización e inteligencia de negocio</span>
+          </h1>
+
+          <p class="hero-subtitle" style="text-align:center;" style="text-align:center;">
+            Ofrecemos servicios integrales en gestión de bases de datos, automatización de procesos,
+            analítica de datos, inteligencia de negocios e inteligencia artificial para que tus decisiones
+            se basen en información confiable y oportuna.
+          </p>
+
+          
+
+          <div class="hero-highlight" style="justify-content:center;">
+            <span class="hero-pill">Dashboards ejecutivos en minutos</span>
+            <span class="hero-pill">ETL/ELT automatizado</span>
+          </div>
+
+          <div class="hero-actions">
+</div>
+
+          
+        </div>
+
+        <aside class="hero-visual reveal" style="margin-top:2rem;max-width:720px;margin-left:auto;margin-right:auto;">
+          <img
+            src="img/ImagenEncabezado.png"
+            alt="Ingeniería y automatización de datos"
+            loading="lazy"
+          />
+        </aside>
+      </div>
+    </section>
+    <!-- QUÉ HACEMOS -->
+    <section id="que-hacemos">
+      <div class="container">
+        <div class="section-header reveal" style="text-align:center;justify-content:center;">
+          <div>
+            <h2 class="section-title">¿Qué <span>hacemos</span> en BitFlow?</h2>
+          </div>
+          
+        </div>
+
+        <div class="grid-4">
+          <article class="card reveal">
+            <div class="card-icon">📊</div>
+            <h3 class="card-title">Inteligencia de Negocios y Analítica</h3>
+            <p class="card-text">
+              Convertimos datos dispersos en indicadores claros y accionables para decisiones estratégicas y operativas.
+            </p>
+            
+            <div class="card-cta">
+              <button class="btn btn-primary open-service-modal" data-modal="bi">Ver detalle</button>
+            </div>
+          </article>
+
+          <article class="card reveal">
+            <div class="card-icon">🗄️</div>
+            <h3 class="card-title">Bases de Datos y Automatización</h3>
+            <p class="card-text">
+              Diseñamos y administramos plataformas de datos robustas, seguras y automatizadas, listas para escalar.
+            </p>
+            
+            <div class="card-cta">
+              <button class="btn btn-primary open-service-modal" data-modal="bd">Ver detalle</button>
+            </div>
+          </article>
+
+          <article class="card reveal">
+            <div class="card-icon">🤖</div>
+            <h3 class="card-title">IA, Consultoría y Capacitaciones</h3>
+            <p class="card-text">
+              Acompañamos la adopción de IA, optimización de procesos tecnológicos y formación de equipos.
+            </p>
+            
+            <div class="card-cta">
+              <button class="btn btn-primary open-service-modal" data-modal="ia">Ver detalle</button>
+            </div>
+          </article>
+
+          <article class="card reveal">
+            <div class="card-icon">🛠️</div>
+            <h3 class="card-title">Soporte Operativo y de Negocio</h3>
+            <p class="card-text">
+              Soluciones prácticas para digitalizar, organizar y soportar los procesos operativos de tu empresa.
+            </p>
+            
+            <div class="card-cta">
+              <button class="btn btn-primary open-service-modal" data-modal="ops">Ver detalle</button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- NOSOTROS -->
+    <section id="nosotros">
+      <div class="container">
+        <div class="section-header reveal" style="text-align:center;justify-content:center;">
+          <div><h2 class="section-title">Sobre <span>BitFlow</span></h2></div>
+          
+        </div>
+
+        <div class="mv-grid">
+          <div class="mv-block reveal">
+            <h3 class="mv-title">Misión</h3>
+            <p class="mv-text">
+              En BitFlow ayudamos a las organizaciones a optimizar y transformar la gestión de su información
+              mediante servicios especializados en bases de datos, automatización de procesos y analítica de negocio.
+            </p>
+          </div>
+
+          <div class="mv-block reveal">
+            <h3 class="mv-title">Visión</h3>
+            <p class="mv-text">
+              Consolidarnos como un aliado estratégico líder en ingeniería de datos y analítica en la región,
+              permitiendo a las organizaciones innovar y competir en un entorno digital dinámico.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VALORES -->
+    <section id="valores">
+      <div class="container">
+        <div class="section-header reveal" style="text-align:center;justify-content:center;">
+          <div><h2 class="section-title">Nuestros <span>valores</span></h2></div>
+          
+        </div>
+
+        <div class="values-grid">
+          <div class="value-pill reveal">
+            <div class="value-title">Innovación</div>
+            <div class="value-text">
+              Soluciones modernas y creativas en ingeniería de datos para mantenerte siempre un paso adelante.
+            </div>
+          </div>
+          <div class="value-pill reveal">
+            <div class="value-title">Excelencia</div>
+            <div class="value-text">
+              Calidad en cada entrega, con resultados medibles y confiables.
+            </div>
+          </div>
+          <div class="value-pill reveal">
+            <div class="value-title">Confianza</div>
+            <div class="value-text">
+              Seguridad, integridad y transparencia en el manejo de la información.
+            </div>
+          </div>
+          <div class="value-pill reveal">
+            <div class="value-title">Colaboración</div>
+            <div class="value-text">
+              Trabajo en equipo con tus áreas para diseñar soluciones a la medida.
+            </div>
+          </div>
+          <div class="value-pill reveal">
+            <div class="value-title">Responsabilidad</div>
+            <div class="value-text">
+              Gestión ética, segura y sostenible de los datos, cumpliendo normativas vigentes.
+            </div>
+          </div>
+          <div class="value-pill reveal">
+            <div class="value-title">Orientación al Cliente</div>
+            <div class="value-text">
+              Nos adaptamos a tu contexto, prioridades y ritmo de crecimiento.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- POR QUÉ BITFLOW / FAQ -->
+    <section>
+      <div class="container">
+        <div class="section-header reveal" style="text-align:center;justify-content:center;">
+          <div><h2 class="section-title">¿Por qué <span>BitFlow</span>?</h2></div>
+          
+        </div>
+
+        <div class="faq-grid">
+          <div class="faq-intro reveal">
+            <p><strong>BitFlow</strong> es ideal para organizaciones que:</p>
+            <ul style="margin:.6rem 0 0 1.1rem;">
+              <li>Quieren dejar atrás reportes manuales en Excel.</li>
+              <li>Necesitan bases de datos bien diseñadas y seguras.</li>
+              <li>Buscan integrar IA y automatización.</li>
+              <li>Requieren un aliado que entienda lo técnico y el negocio.</li>
+            </ul>
+            <p style="margin-top:.8rem;">
+              Iniciamos con un diagnóstico de madurez y definimos un roadmap
+              de acciones priorizadas por impacto.
+            </p>
+          </div>
+
+          <div class="accordion">
+            <div class="accordion-item reveal">
+              <div class="accordion-header">
+                <div class="accordion-title">¿Qué tan rápido puedo ver resultados?</div>
+                <div class="accordion-icon">➤</div>
+              </div>
+              <div class="accordion-body">
+                <div class="accordion-body-inner">
+                  En pocas semanas puedes tener dashboards clave y procesos de carga automatizados.
+                  Priorizamos “quick wins” mientras construimos la arquitectura de largo plazo.
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item reveal">
+              <div class="accordion-header">
+                <div class="accordion-title">¿Trabajan on-premise y en la nube?</div>
+                <div class="accordion-icon">➤</div>
+              </div>
+              <div class="accordion-body">
+                <div class="accordion-body-inner">
+                  Sí, trabajamos con infraestructura local, nube (Azure, AWS, GCP) o modelos híbridos,
+                  según tus requerimientos técnicos y de cumplimiento.
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item reveal">
+              <div class="accordion-header">
+                <div class="accordion-title">¿Pueden entrenar a mi equipo?</div>
+                <div class="accordion-icon">➤</div>
+              </div>
+              <div class="accordion-body">
+                <div class="accordion-body-inner">
+                  Ofrecemos capacitaciones prácticas en Power BI, SQL, ETL y gobierno de datos
+                  adaptadas al nivel de tu equipo.
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item reveal">
+              <div class="accordion-header">
+                <div class="accordion-title">¿Cómo empezamos a trabajar?</div>
+                <div class="accordion-icon">➤</div>
+              </div>
+              <div class="accordion-body">
+                <div class="accordion-body-inner">
+                  Iniciamos con una reunión de descubrimiento sin costo para entender tus retos
+                  y proponer un plan alineado a tus objetivos de negocio.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section id="contacto">
+      <div class="container">
+        <div class="section-header reveal" style="text-align:center;justify-content:center;">
+          <div><h2 class="section-title">Conversemos sobre tus <span>datos</span></h2></div>
+          
+        </div>
+
+        <div class="contact-grid">
+          <div class="contact-card reveal">
+            <h3 class="mv-title">Agenda una reunión</h3>
+
+            <form class="contact-form"
+              action="https://formsubmit.co/moya_0703@hotmail.com"
+              method="POST">
+
+              <!-- CONFIGURACIÓN FORM SUBMIT -->
+              <input type="hidden" name="_captcha" value="false">
+              <input type="hidden" name="_template" value="box">
+              <input type="hidden" name="_subject" value="Nuevo mensaje desde BitFlow">
+              <input type="hidden" name="_next" value="gracias.html">
+
+              <!-- CAMPOS DEL FORMULARIO -->
+              <div class="field">
+                <label for="nombre">Nombre y apellido</label>
+                <input id="nombre" name="nombre" type="text" placeholder="Ej. Juan Pérez" required />
+              </div>
+
+              <div class="field">
+                <label for="empresa">Empresa</label>
+                <input id="empresa" name="empresa" type="text" placeholder="Nombre de tu organización" />
+              </div>
+
+              <div class="field">
+                <label for="email">Correo electrónico</label>
+                <input id="email" name="email" type="email" placeholder="tu@empresa.com" required />
+              </div>
+
+              <div class="field">
+                <label for="interes">¿Qué te interesa?</label>
+                <select id="interes" name="interes" required>
+                  <option value="">Selecciona una opción</option>
+                  <option>Dashboards y BI</option>
+                  <option>Automatización de procesos / ETL</option>
+                  <option>Implementación / gestión de bases de datos</option>
+                  <option>Consultorías</option>
+                  <option>Inteligencia Artificial</option>
+                  <option>Capacitación a equipos</option>
+                  <option>Otro</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="mensaje">Cuéntanos brevemente tu reto</label>
+                <textarea id="mensaje" name="mensaje" placeholder="Ej. Necesitamos automatizar reportes y consolidar datos de distintas fuentes..." required></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-primary">Enviar mensaje</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container footer-inner">
+      <div>© <span id="year"></span> BitFlow. Todos los derechos reservados.</div>
+      <div class="footer-links">
+        <a href="#inicio">Inicio</a>
+        
+        <a href="#contacto">Contacto</a>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- WhatsApp flotante -->
+<a
+  href="https://wa.me/573162718779?text=Hola%20quiero%20agendar%20una%20consulta%20con%20BitFlow"
+  class="whatsapp-float"
+  target="_blank"
+  rel="noopener"
+  aria-label="Agenda una consulta por WhatsApp"
+>
+  <img src="img/Logo-whatsapp.png" alt="WhatsApp" loading="lazy" />
+  <span>WhatsApp</span>
+</a>
+
+
+<!-- MODAL: Detalle de servicios -->
+<div class="modal-backdrop" id="serviceModal" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-header">
+      <div>
+        <div class="modal-eyebrow" id="modalEyebrow">BitFlow</div>
+        <h3 class="modal-title" id="modalTitle">Detalle</h3>
+      </div>
+      <button class="modal-close" type="button" id="modalClose" aria-label="Cerrar">✕</button>
+    </div>
+
+    <div class="modal-body" id="modalBody"></div>
+
+    <div class="modal-footer">
+      <button class="btn btn-ghost" type="button" id="modalSecondaryClose">Cerrar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Año dinámico
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  // Filtro servicios
+  const filterButtons=document.querySelectorAll(".filter-btn");
+  const serviceCards=document.querySelectorAll(".service-card");
+  filterButtons.forEach(btn=>{
+    btn.addEventListener("click",()=>{
+      const filter=btn.getAttribute("data-filter");
+      filterButtons.forEach(b=>b.classList.remove("active"));
+      btn.classList.add("active");
+      serviceCards.forEach(card=>{
+        const category=card.getAttribute("data-category");
+        card.style.display=(filter==="all"||category===filter)?"block":"none";
+      });
+    });
+  });
+
+  // Acordeón
+  const accordionItems=document.querySelectorAll(".accordion-item");
+  accordionItems.forEach(item=>{
+    const header=item.querySelector(".accordion-header");
+    const body=item.querySelector(".accordion-body");
+    header.addEventListener("click",()=>{
+      const isOpen=item.classList.contains("open");
+      accordionItems.forEach(other=>{
+        other.classList.remove("open");
+        const ob=other.querySelector(".accordion-body");
+        if(ob) ob.style.maxHeight=null;
+      });
+      if(!isOpen){
+        item.classList.add("open");
+        body.style.maxHeight=body.scrollHeight+"px";
+      }
+    });
+  });
+
+  // Animación scroll
+  const revealElements=document.querySelectorAll(".reveal");
+  const observer=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add("visible");
+        observer.unobserve(entry.target);
+      }
+    });
+  },{threshold:0.15});
+  revealElements.forEach(el=>observer.observe(el));
+
+  // Modal de servicios (detalle bonito)
+  const serviceModal = document.getElementById("serviceModal");
+  const modalTitle = document.getElementById("modalTitle");
+  const modalEyebrow = document.getElementById("modalEyebrow");
+  const modalBody = document.getElementById("modalBody");
+  const modalClose = document.getElementById("modalClose");
+  const modalSecondaryClose = document.getElementById("modalSecondaryClose");
+
+  const modalData = {
+    bi: {
+      eyebrow: "Inteligencia de Negocios",
+      title: "BI y Analítica de Datos",
+      desc: "Indicadores confiables, reportes automatizados e integración de fuentes para decisiones rápidas.",
+      image: "img/servicio-bi.png",
+      items: [
+        "Diseño de tableros ejecutivos (KPIs)",
+        "Automatización de reportes",
+        "Gobierno y calidad de datos",
+        "Optimización de indicadores clave",
+        "Integración de múltiples fuentes de datos"
+      ]
+    },
+    bd: {
+      eyebrow: "Bases de Datos y Automatización",
+      title: "Diseño, administración y automatización de datos",
+      desc: "Plataformas de datos seguras, estables y listas para escalar, con control y respaldo.",
+      image: "img/servicio-bd.jpg",
+      items: [
+        "Diseño y Administración de Bases de Datos",
+        "Automatización de procesos administrativos",
+        "Automatización entre ERP, BI, CRM y DB",
+        "Migración de bases de datos a la nube",
+        "Gestión de backups, Seguridad y control de accesos"
+      ]
+    },
+    ia: {
+      eyebrow: "Inteligencia Artificial",
+      title: "IA, Consultoría y Capacitaciones",
+      desc: "Adopción de IA con foco en productividad, estandarización y entrenamiento del equipo.",
+      image: "img/servicio-ia.png",
+      items: [
+        "Introducción de herramientas de inteligencia artificial",
+        "Capacitación de uso de herramientas de información",
+        "Consultoría de procesos a nivel tecnológico",
+        "Automatización de procesos operativos"
+      ]
+    },
+    ops: {
+      eyebrow: "Soporte Operativo",
+      title: "Soporte Operativo y de Negocio",
+      desc: "Digitalización y soporte para mejorar orden, trazabilidad y ejecución operativa.",
+      image: "img/servicio-ops.jpg",
+      items: [
+        "Diseño de páginas web",
+        "Gestión documental",
+        "Digitalización de documentos"
+      ]
+    }
+  };
+
+  function openModal(key){
+    const data = modalData[key];
+    if(!data) return;
+
+    modalEyebrow.textContent = data.eyebrow;
+    modalTitle.textContent = data.title;
+
+    const leftItems = (data.items || []).map(t => `
+      <div class="modal-item">
+        <div class="modal-dot"></div>
+        <div><strong>${t}</strong></div>
+      </div>
+    `).join("");
+
+    modalBody.innerHTML = `
+      <div class="modal-panel">
+        <h4>Servicios incluidos</h4>
+        <p>${data.desc || ""}</p>
+        <div class="modal-list">${leftItems}</div>
+      </div>
+      <div class="modal-panel">
+        <img src="${data.image}" alt="${data.title}" style="width:100%;border-radius:14px;border:1px solid rgba(148,163,184,.15);background:rgba(2,6,23,.35);" loading="lazy" />
+      </div>
+    `;
+
+    serviceModal.classList.add("open");
+    serviceModal.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+  }
+
+function closeModal(){
+    serviceModal.classList.remove("open");
+    serviceModal.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+  }
+
+  document.querySelectorAll(".open-service-modal").forEach(btn => {
+    btn.addEventListener("click", () => openModal(btn.getAttribute("data-modal")));
+  });
+
+  modalClose.addEventListener("click", closeModal);
+  modalSecondaryClose.addEventListener("click", closeModal);
+
+  serviceModal.addEventListener("click", (e) => {
+    if(e.target === serviceModal) closeModal();
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if(e.key === "Escape" && serviceModal.classList.contains("open")) closeModal();
+  });
+</script>
+</body>
+</html>
+```
